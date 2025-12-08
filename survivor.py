@@ -51,14 +51,19 @@ def new_day():
     return player, current_day
 
 def eating_food(current_food):
-    if current_food in food:  
-        player["hunger"] += food[current_food] 
-        if player["hunger"] > 50: 
-            player["hunger"] = 50 # maximum hunger allowed is 50
+    if current_food is None:
+        current_food = input("What food would you like to eat? ")
+    
+    if current_food in food:
+        player["hunger"] += food[current_food]
+        if player["hunger"] > 50:
+            player["hunger"] = 50  # maximum hunger allowed is 50
         print(f"You ate {current_food}. Hunger is now {player['hunger']}")
     else:
         print(f"{current_food} is not available.")
+    
     return player
+
 
 def drink(current_liquid):
     if current_liquid in liquid:  
@@ -72,7 +77,7 @@ def drink(current_liquid):
 
 def day_options():
     #at the start of a new day were returning all needed stats so the play can always see them
-    print("Player Stats:")
+    print("--- Player Stats ---")
     print("  Health:", player["health"])
     print("  Hunger:", player["hunger"])
     print("  Thirst:", player["thirst"])
@@ -83,21 +88,24 @@ def day_options():
     print ("2. Drink")
     print ("3. Sleep")
     print ("4. Show inventory")
-    print ("5. Hunt")
-
+    print ("5. Hunt food")
+    print ("6. Gather water")
     decision = input("What would you like to do today?\n")
 
     if decision == "eat" or decision == "1":
-        pass
+        current_food = input ("what food would you like to eat?")
+        eating_food(current_food)
     elif decision == "drink" or decision == "2":
-        pass
+        drink("water")
     elif decision == "sleep" or decision == "3":
         os.system('cls')
         new_day()
     elif decision == "show inventory" or decision == "4":
         show_inventory()
-    elif decision == "hunt" or decision == "5":
-        hunt("rabbit", 1)
+    elif decision == "hunt food" or decision == "5":
+        hunt("rabbit")
+    elif decision == "gather water" or decision == "6":
+        gather_water()
     
 def hunt(item):
     amount_dropped = random.randint(1, 2)
@@ -114,9 +122,16 @@ def hunt(item):
     else:
         print("Hunt failed. Better luck next time!")
 
-
-    
-
+def gather_water():
+    stamina_lost = 10
+    player["stamina"] -=  stamina_lost
+    print (f"stamina reduced by {stamina_lost} current stamina is" ,player["stamina"])
+    if "water" in player_inventory:
+        player_inventory["water"] += 1
+        print ("We gathered 1 water")
+    else:
+        player_inventory["water"] = 1
+        print ("We gathered 1 water")
 
 def show_inventory():
     print("\n--- Inventory ---")

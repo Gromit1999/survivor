@@ -34,6 +34,7 @@ def new_day():
     #were choosing a number been 5 and 20 and taking it away from hunger and thirst
     player["hunger"] -= random.randint(5,20)
     player["thirst"] -= random.randint(5,20)
+    player["stamina"] += random.randint(30,50)
     
     #not allowing hunger and thirst to go below 0
     player["hunger"] = max(0, player["hunger"])
@@ -42,7 +43,7 @@ def new_day():
     #adding a day to the current day
     current_day += 1
 
-    if player["hunger"] <= 0 or player["thirst"] <= 0:
+    if player["hunger"] <= 0 or player["thirst"] <= 0 or player["health"] <= 0:
         print("You died!")
         exit()
     return player, current_day
@@ -81,6 +82,7 @@ def day_options():
     print ("3. Sleep")
     print ("4. Show inventory")
     print ("5. Hunt")
+
     decision = input("What would you like to do today?\n")
 
     if decision == "eat" or decision == "1":
@@ -98,7 +100,7 @@ def day_options():
 def hunt(item, amount= 1):
     if item in player_inventory:
         player_inventory[item] += amount
-        print("we hunted and gained:5", amount, item)
+        print("we hunted and gained:", amount, item)
     else:
         player_inventory[item] = amount
 

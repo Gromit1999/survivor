@@ -29,12 +29,14 @@ total_days = 30
 current_day = 0
 
 
+
+
 def new_day():
     global current_day
     #were choosing a number been 5 and 20 and taking it away from hunger and thirst
-    player["hunger"] -= random.randint(5,20)
-    player["thirst"] -= random.randint(5,20)
-    player["stamina"] += random.randint(30,50)
+    player["hunger"] -= random.randint(5,19)
+    player["thirst"] -= random.randint(5,19)
+    player["stamina"] += random.randint(30,49)
     
     #not allowing hunger and thirst to go below 0
     player["hunger"] = max(0, player["hunger"])
@@ -97,12 +99,24 @@ def day_options():
     elif decision == "hunt" or decision == "5":
         hunt("rabbit", 1)
     
-def hunt(item, amount= 1):
-    if item in player_inventory:
-        player_inventory[item] += amount
-        print("we hunted and gained:", amount, item)
+def hunt(item):
+    amount_dropped = random.randint(1, 2)
+    
+    # 60% chance of success
+    success_chance = 60
+    roll = random.randint(0, 99) 
+    if roll < success_chance:
+        if item in player_inventory:
+            player_inventory[item] += amount_dropped
+        else:
+            player_inventory[item] = amount_dropped
+        print(f"We hunted and gained {amount_dropped} {item}!")
     else:
-        player_inventory[item] = amount
+        print("Hunt failed. Better luck next time!")
+
+
+    
+
 
 def show_inventory():
     print("\n--- Inventory ---")

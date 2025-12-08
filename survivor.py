@@ -28,9 +28,6 @@ liquid = {
 total_days = 30
 current_day = 0
 
-
-
-
 def new_day():
     global current_day
     #were choosing a number been 5 and 20 and taking it away from hunger and thirst
@@ -41,6 +38,7 @@ def new_day():
     #not allowing hunger and thirst to go below 0
     player["hunger"] = max(0, player["hunger"])
     player["thirst"] = max(0, player["thirst"])
+    player["stamina"] = min(100, player["stamina"])
 
     #adding a day to the current day
     current_day += 1
@@ -64,7 +62,6 @@ def eating_food(current_food):
     
     return player
 
-
 def drink(current_liquid):
     if current_liquid in liquid:  
         player["thirst"] += liquid[current_liquid] 
@@ -86,7 +83,7 @@ def day_options():
     print(f"\n--- Day {current_day} ---")
     print ("1. Eat")
     print ("2. Drink")
-    print ("3. Sleep")
+    print ("3. End the day")
     print ("4. Show inventory")
     print ("5. Hunt food")
     print ("6. Gather water")
@@ -97,7 +94,7 @@ def day_options():
         eating_food(current_food)
     elif decision == "drink" or decision == "2":
         drink("water")
-    elif decision == "sleep" or decision == "3":
+    elif decision == "End the day" or decision == "3":
         os.system('cls')
         new_day()
     elif decision == "show inventory" or decision == "4":

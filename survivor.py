@@ -23,6 +23,49 @@ food = {
 liquid = {
     "water": 20
 }
+#animals
+rabbit = {
+    "chance_to_succeed": 100,
+    "item_gain": 1,
+    "stamina_cost": 0,
+    "danger": 0
+}
+
+deer = {
+    "chance_to_succeed": 100,
+    "item_gain": 1,
+    "stamina_cost": 0,
+    "danger": 0
+}
+
+boar = {
+    "chance_to_succeed": 100,
+    "item_gain": 1,
+    "stamina_cost": 0,
+    "danger": 0
+}
+
+wolf = {
+    "chance_to_succeed": 100,
+    "item_gain": 1,
+    "stamina_cost": 0,
+    "danger": 0
+}
+
+bear = {
+    "chance_to_succeed": 100,
+    "item_gain": 1,
+    "stamina_cost": 0,
+    "danger": 0
+}
+
+fish = {
+    "chance_to_succeed": 100,
+    "item_gain": 1,
+    "stamina_cost": 0,
+    "danger": 0
+}
+
 
 #amount of total days to survive and current day were on
 total_days = 30

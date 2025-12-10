@@ -8,9 +8,9 @@ player = {
     "hunger": 50,
     "thirst": 50
 }
-#player inventory
+#player inventory / starting inventory
 player_inventory = {
-    "rabbit": 1
+    "Rabbit": 1
 }
 #food stats
 food = {
@@ -27,45 +27,60 @@ liquid = {
 rabbit = {
     "chance_to_succeed": 100,
     "item_gain": 1,
-    "stamina_cost": 0,
+    "item_to_give": "Raw Rabbit",
+    "stamina_cost": 5,
     "danger": 0
 }
 
 deer = {
-    "chance_to_succeed": 100,
+    "chance_to_succeed": 80,
     "item_gain": 1,
-    "stamina_cost": 0,
-    "danger": 0
+    "item_to_give": "Raw Deer Meat",
+    "stamina_cost": 15,
+    "danger": 10
 }
 
 boar = {
-    "chance_to_succeed": 100,
+    "chance_to_succeed": 60,
     "item_gain": 1,
-    "stamina_cost": 0,
-    "danger": 0
+    "item_to_give": "Raw Boar Meat",
+    "stamina_cost": 20,
+    "danger": 25
 }
 
 wolf = {
-    "chance_to_succeed": 100,
+    "chance_to_succeed": 50,
     "item_gain": 1,
-    "stamina_cost": 0,
-    "danger": 0
+    "item_to_give": "Wolf Pelt",
+    "stamina_cost": 25,
+    "danger": 35
 }
 
 bear = {
-    "chance_to_succeed": 100,
+    "chance_to_succeed": 30,
     "item_gain": 1,
-    "stamina_cost": 0,
-    "danger": 0
+    "item_to_give": "Bear Meat",
+    "stamina_cost": 40,
+    "danger": 50
 }
 
 fish = {
-    "chance_to_succeed": 100,
+    "chance_to_succeed": 90,
     "item_gain": 1,
-    "stamina_cost": 0,
+    "item_to_give": "Raw Fish",
+    "stamina_cost": 10,
     "danger": 0
 }
 
+
+animals = {
+    "rabbit": rabbit,
+    "deer": deer,
+    "boar": boar,
+    "wolf": wolf,
+    "bear": bear,
+    "fish": fish
+}
 
 #amount of total days to survive and current day were on
 total_days = 30
@@ -143,24 +158,31 @@ def day_options():
     elif decision == "show inventory" or decision == "4":
         show_inventory()
     elif decision == "hunt food" or decision == "5":
-        hunt("rabbit")
+        animal_to_hunt = input ("what anaimal are you hunting?")
+        hunt(animal_to_hunt)
     elif decision == "gather water" or decision == "6":
         gather_water()
     
-def hunt(item):
-    amount_dropped = random.randint(1, 2)
-    
-    # 60% chance of success
-    success_chance = 60
-    roll = random.randint(0, 99) 
-    if roll < success_chance:
-        if item in player_inventory:
-            player_inventory[item] += amount_dropped
+def hunt(animal_name):
+    animal = animals[animal_name]
+    item_to_give = animal["item_to_give"]
+    success_chance = animal["chance_to_succeed"]
+    item_gain = animal["item_gain"]
+    stamina_cost = animal["stamina_cost"]
+    #danger isnt currently being used just a quick draft
+    danger = animal["danger"]
+
+    roll_chance = random.randint(0, 100)
+
+    if roll_chance <= success_chance:
+        if item_to_give in player_inventory:
+            player_inventory[item_to_give] += item_gain
+            print("You've gained", item_gain, item_to_give, "it cost", stamina_cost, "stamina")
         else:
-            player_inventory[item] = amount_dropped
-        print(f"We hunted and gained {amount_dropped} {item}!")
-    else:
-        print("Hunt failed. Better luck next time!")
+            player_inventory[item_to_give] = item_gain
+            print("You've gained", item_gain, item_to_give, "it cost", stamina_cost, "stamina")
+    return
+    
 
 def gather_water():
     stamina_lost = 10

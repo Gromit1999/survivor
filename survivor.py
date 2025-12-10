@@ -27,7 +27,7 @@ liquid = {
 rabbit = {
     "chance_to_succeed": 100,
     "item_gain": 1,
-    "item_to_give": "Raw Rabbit",
+    "item_to_give": "Raw rabbit",
     "stamina_cost": 5,
     "danger": 0
 }
@@ -35,7 +35,7 @@ rabbit = {
 deer = {
     "chance_to_succeed": 80,
     "item_gain": 1,
-    "item_to_give": "Raw Deer Meat",
+    "item_to_give": "Raw deer meat",
     "stamina_cost": 15,
     "danger": 10
 }
@@ -43,7 +43,7 @@ deer = {
 boar = {
     "chance_to_succeed": 60,
     "item_gain": 1,
-    "item_to_give": "Raw Boar Meat",
+    "item_to_give": "Raw boar meat",
     "stamina_cost": 20,
     "danger": 25
 }
@@ -51,7 +51,7 @@ boar = {
 wolf = {
     "chance_to_succeed": 50,
     "item_gain": 1,
-    "item_to_give": "Wolf Pelt",
+    "item_to_give": "Raw wolf meat",
     "stamina_cost": 25,
     "danger": 35
 }
@@ -59,7 +59,7 @@ wolf = {
 bear = {
     "chance_to_succeed": 30,
     "item_gain": 1,
-    "item_to_give": "Bear Meat",
+    "item_to_give": "Raw bear meat",
     "stamina_cost": 40,
     "danger": 50
 }
@@ -67,7 +67,7 @@ bear = {
 fish = {
     "chance_to_succeed": 90,
     "item_gain": 1,
-    "item_to_give": "Raw Fish",
+    "item_to_give": "Raw fish",
     "stamina_cost": 10,
     "danger": 0
 }
@@ -80,6 +80,15 @@ animals = {
     "wolf": wolf,
     "bear": bear,
     "fish": fish
+}
+#things we can start gathering we need a list of things to gather just putting wood here just as a placeholder for how i want to structure it
+wood = {
+    "item_gain": 1,
+    "stamina_cost": 10,
+    #kind of like a swift swing gives you 2 items instead of one, also using the approaite tool or having the apprioate tool will 
+    #give you 2x, so it will be 2x2 which will give you 4 for the same stamina as gaining one normally
+    "double_chance": 20,
+    "bonus_tool": "axe"
 }
 
 #amount of total days to survive and current day were on
@@ -146,6 +155,7 @@ def day_options():
     print ("5. Hunt food")
     print ("6. Gather water")
     decision = input("What would you like to do today?\n")
+    decision = decision.lower()
 
     if decision == "eat" or decision == "1":
         current_food = input ("what food would you like to eat?")
@@ -162,6 +172,8 @@ def day_options():
         hunt(animal_to_hunt)
     elif decision == "gather water" or decision == "6":
         gather_water()
+    elif decision == "gather" or decision == "7":
+        gather()
     
 def hunt(animal_name):
     animal = animals[animal_name]
@@ -183,6 +195,9 @@ def hunt(animal_name):
             print("You've gained", item_gain, item_to_give, "it cost", stamina_cost, "stamina")
     return
     
+def gather():
+    #this is placeholder to start gathering materials like look, maybe even metals for armor fighting animals
+    pass
 
 def gather_water():
     stamina_lost = 10

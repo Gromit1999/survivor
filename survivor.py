@@ -72,7 +72,6 @@ fish = {
     "danger": 0
 }
 
-
 animals = {
     "rabbit": rabbit,
     "deer": deer,
@@ -89,6 +88,20 @@ wood = {
     #give you 2x, so it will be 2x2 which will give you 4 for the same stamina as gaining one normally
     "double_chance": 20,
     "bonus_tool": "axe"
+}
+
+iron = {
+    "item_gain": 1,
+    "stamina_cost": 10,
+    #kind of like a swift swing gives you 2 items instead of one, also using the approaite tool or having the apprioate tool will 
+    #give you 2x, so it will be 2x2 which will give you 4 for the same stamina as gaining one normally
+    "double_chance": 20,
+    "bonus_tool": "axe"
+}
+
+materials = {
+    "wood": wood,
+    "iron": iron
 }
 
 #amount of total days to survive and current day were on
@@ -154,6 +167,7 @@ def day_options():
     print ("4. Show inventory")
     print ("5. Hunt food")
     print ("6. Gather water")
+    print ("7. Gather materials")
     decision = input("What would you like to do today?\n")
     decision = decision.lower()
 
@@ -173,7 +187,8 @@ def day_options():
     elif decision == "gather water" or decision == "6":
         gather_water()
     elif decision == "gather" or decision == "7":
-        gather()
+        material = input ("what are you gathering?")
+        gather(material)
     
 def hunt(animal_name):
     animal = animals[animal_name]
@@ -195,10 +210,14 @@ def hunt(animal_name):
             print("You've gained", item_gain, item_to_give, "it cost", stamina_cost, "stamina")
     return
     
-def gather():
-    #this is placeholder to start gathering materials like look, maybe even metals for armor fighting animals
-    pass
-
+def gather(material):
+    if material in materials:
+        if material in player_inventory:
+            player_inventory[material] += 1
+        else:
+            player_inventory[material] =1
+    else:
+        print ("material not in list")
 def gather_water():
     stamina_lost = 10
     player["stamina"] -=  stamina_lost

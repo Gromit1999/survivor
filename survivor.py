@@ -1,5 +1,7 @@
 import random
 import os
+import stats.py
+
 
 #player stats
 player = {
@@ -211,13 +213,20 @@ def hunt(animal_name):
     return
     
 def gather(material):
+    chance = 50
+    double_item_chance = random.randint(0,100)
     if material in materials:
         if material in player_inventory:
-            player_inventory[material] += 1
+            if double_item_chance > chance:
+                player_inventory[material] += 2
+                print ("you did a clean swing")
+            else:
+                player_inventory[material] += 1
         else:
             player_inventory[material] =1
     else:
         print ("material not in list")
+
 def gather_water():
     stamina_lost = 10
     player["stamina"] -=  stamina_lost

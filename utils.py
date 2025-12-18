@@ -7,7 +7,9 @@ player = {
 }
 #player inventory / starting inventory
 player_inventory = {
-    "Rabbit": 1
+    "Rabbit": 1,
+    "axe": 1,
+    "pickaxe": 1
 }
 #food stats
 food = {
@@ -93,7 +95,7 @@ iron = {
     #kind of like a swift swing gives you 2 items instead of one, also using the approaite tool or having the apprioate tool will 
     #give you 2x, so it will be 2x2 which will give you 4 for the same stamina as gaining one normally
     "double_chance": 20,
-    "bonus_tool": "axe"
+    "bonus_tool": "pickaxe"
 }
 
 materials = {

@@ -114,6 +114,21 @@ def gather(material):
     stamina_cost = 0
     #this is the chance of getting x2 loot for being lucky, still a placeholder
     double_loot = 0
+
+    if material in materials:
+        mat = materials[material]
+        stamina_cost = mat["stamina_cost"]
+        double_loot = mat["double_chance"]
+        if double_item_chance <= double_loot:
+            default_item_gain *= 2
+            print ("You got lucky and gathered double the items!")
+        
+        if material in player_inventory:
+            player_inventory[material] += default_item_gain
+            print("You've gained", default_item_gain, material, "it cost", stamina_cost, "stamina")
+        else:
+            player_inventory[material] = default_item_gain
+            print("You've gained", default_item_gain, material, "it cost", stamina_cost, "stamina")
     
 def gather_water():
     stamina_lost = 10
